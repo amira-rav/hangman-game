@@ -1,0 +1,57 @@
+def isWordGuessed(secretWord, lettersGuessed):
+    
+    correct = []
+    for i in secretWord:
+      if i in lettersGuessed:
+        correct.append(True)
+      else:
+        correct.append(False)
+      if all(correct):
+        return True
+      else:
+        return False
+
+
+def getGuessedWord(secretWord, lettersGuessed):
+
+    output = ''
+    for letter in secretWord:
+      if letter in lettersGuessed:
+        output+= letter + ' '
+      else:
+        output+=' _ '
+    return output
+
+
+def getAvailableLetters(lettersGuessed):
+
+    master = 'abcdefghijklmnopqrstuvwxyz'
+    available = ''
+    for letter in master:
+      if letter in lettersGuessed:
+        available+=''
+      else:
+        available+=letter
+    return available
+    
+def hangman(secretWord):
+
+    print("The secret word has " + str(len(secretWord)) + " letters.")
+
+    print("Please remember to choose only one letter per round")
+
+    lettersGuessed = []
+    for i in range(10):
+      l = input("choose a letter: ")
+      lettersGuessed.append(l)
+      print(getGuessedWord(secretWord, lettersGuessed))
+      print(getAvailableLetters(lettersGuessed)) 
+
+    isWordGuessed(secretWord, lettersGuessed)
+
+f = open('words.txt','r')
+wordlist = f.read().split(' ')
+f.close()
+
+import random
+hangman(random.choice(wordlist))
